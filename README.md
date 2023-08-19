@@ -9,10 +9,12 @@ pomidor
 
 ## Shortcuts
 ```
-e - enters the edit mode; format: hh:mm:ss or mm:ss
-r - resets the timer to the set value
-s - stops the timer and resets it to 00:00
-q - quits
+e     - enters the edit mode; format: hh:mm:ss or mm:ss
+esc   - exits the edit mode
+enter - accepts the input
+r     - resets the timer to the set value
+s     - stops the timer and resets it to 00:00
+q     - quits
 ```
 
 # Demo
