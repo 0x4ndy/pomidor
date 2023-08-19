@@ -16,3 +16,4 @@ q - quits
 ```
 
 # Demo
+![](https://github.com/0x4ndy/pomidor/blob/master/pomidor.gif)
