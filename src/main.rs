@@ -1,6 +1,7 @@
 use std::{
     error::Error,
     io,
+    rc::Rc,
     time::{Duration, Instant},
 };
 
@@ -187,6 +188,23 @@ fn generate_content(text: &str) -> Vec<String> {
     content
 }
 
+fn create_chunks(size: Rect, top_h: u16, text_h: u16, bot_h: u16, input_h: u16) -> Rc<[Rect]> {
+    let chunks = Layout::default()
+        .direction(Direction::Vertical)
+        .constraints(
+            [
+                Constraint::Length(top_h),
+                Constraint::Length(text_h),
+                Constraint::Length(bot_h),
+                Constraint::Max(input_h),
+            ]
+            .as_ref(),
+        )
+        .split(size);
+
+    chunks
+}
+
 fn ui<B: Backend>(f: &mut Frame<B>, app: &App) {
     let size = f.size();
     let mut text: Vec<Line> = Vec::new();
@@ -217,18 +235,13 @@ fn ui<B: Backend>(f: &mut Frame<B>, app: &App) {
         text.push(Line::from(line));
     }
 
-    let chunks = Layout::default()
-        .direction(Direction::Vertical)
-        .constraints(
-            [
-                Constraint::Length(top_height),
-                Constraint::Length(text_height as u16),
-                Constraint::Length(bot_height as u16),
-                Constraint::Length(input_height),
-            ]
-            .as_ref(),
-        )
-        .split(size);
+    let chunks = create_chunks(
+        size,
+        top_height,
+        text_height as u16,
+        bot_height as u16,
+        input_height,
+    );
 
     let create_block = |title: String| {
         Block::default()
